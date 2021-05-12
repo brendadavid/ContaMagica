@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContaCorrente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ContaMagica</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">ContaCorrente.java</span></div><h1>ContaCorrente.java</h1><pre class="source lang-java linenums">public class ContaCorrente {
+    private String numeroConta;
+    private String nomeCorrentista;
+<span class="fc" id="L4">    private double saldo = 0;</span>
+<span class="fc" id="L5">    private CategoriaEnum categoria = CategoriaEnum.SILVER;</span>
+
+<span class="fc" id="L7">    public ContaCorrente(String nro, String nome) {</span>
+<span class="fc" id="L8">        this.numeroConta = nro;</span>
+<span class="fc" id="L9">        this.nomeCorrentista = nome;</span>
+<span class="fc" id="L10">    }</span>
+
+    public String getNumeroConta() {
+<span class="fc" id="L13">        return numeroConta;</span>
+    }
+
+    public String getNomeCorrentista() {
+<span class="fc" id="L17">        return nomeCorrentista;</span>
+    }
+
+    public double getSaldo() {
+<span class="fc" id="L21">        return saldo;</span>
+    }
+
+    public CategoriaEnum getCategoria() {
+<span class="fc" id="L25">        return this.categoria;</span>
+    }
+
+    public boolean deposito(double valor) {
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (valor &lt;= 0) {</span>
+<span class="fc" id="L30">            System.out.println(&quot;Valor inválido&quot;);</span>
+<span class="fc" id="L31">            return false;</span>
+        } else {
+<span class="fc bfc" id="L33" title="All 2 branches covered.">            if (categoria.equals(CategoriaEnum.SILVER)) {</span>
+<span class="fc" id="L34">                this.saldo += valor;</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">                if (getSaldo() &gt;= 50000) {</span>
+<span class="fc" id="L36">                    categoria = CategoriaEnum.GOLD;</span>
+                }
+<span class="fc bfc" id="L38" title="All 2 branches covered.">            } else if (categoria.equals(CategoriaEnum.GOLD)) {</span>
+<span class="fc" id="L39">                this.saldo += valor * 1.01;</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">                if (getSaldo() &gt;= 200000) {</span>
+<span class="fc" id="L41">                    categoria = CategoriaEnum.PLATINUM;</span>
+                }
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">            } else if (getSaldo() &gt;= 200000) {</span>
+<span class="fc" id="L44">                this.saldo += valor * 1.025;</span>
+            }
+<span class="fc" id="L46">            return true;</span>
+        }
+    }
+
+    public boolean retirada(double valor) {
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (valor &gt; getSaldo()) {</span>
+<span class="fc" id="L52">            System.out.println(&quot;Valor requisitado indisponível&quot;);</span>
+<span class="fc" id="L53">            return false;</span>
+        } else {
+<span class="fc" id="L55">            this.saldo -= valor;</span>
+
+<span class="pc bpc" id="L57" title="1 of 4 branches missed.">            if (getSaldo() &lt; 25000 &amp;&amp; categoria.equals(CategoriaEnum.GOLD)) {</span>
+<span class="fc" id="L58">                categoria = CategoriaEnum.SILVER;</span>
+
+<span class="fc bfc" id="L60" title="All 4 branches covered.">            } else if (getSaldo() &lt; 100000 &amp;&amp; categoria.equals(CategoriaEnum.PLATINUM)) {</span>
+
+<span class="fc" id="L62">                this.categoria = CategoriaEnum.GOLD;</span>
+            }
+
+<span class="fc" id="L65">            return true;</span>
+        }
+    }
+
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
