@@ -166,9 +166,6 @@ public class ContaCorrenteTest {
         assertEquals(CategoriaEnum.GOLD, conta.getCategoria());
     }
 
-
-
-
     @Test
     public void retiradaPlatinum() {
         depositoInicial(50_000);
